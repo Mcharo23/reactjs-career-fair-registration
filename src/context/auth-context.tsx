@@ -81,9 +81,9 @@ export const AuthProvider: React.FC<AuthProviderProp> = ({ children }) => {
       .then((result) => {
         console.log(result);
         // Handle successful
-        setAuthToken(result.token);
-        localStorage.setItem(TOKEN, JSON.stringify(result.token));
-        const decodedUser: userType = jwtDecode(result.token);
+        setAuthToken(result.jwt);
+        localStorage.setItem(TOKEN, JSON.stringify(result.jwt));
+        const decodedUser: userType = jwtDecode(result.jwt);
         setUser(decodedUser);
 
         if (decodedUser.role === UserRole.ADMIN) {
