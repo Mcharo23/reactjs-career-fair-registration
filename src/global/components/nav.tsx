@@ -2,20 +2,22 @@ import {
   IconCalendarEvent,
   IconDashboard,
   IconLogout,
+  IconProps,
 } from "@tabler/icons-react";
 import classes from "../css/NavbarSimple.module.css";
-import { NAV_LINK } from "../../lib/enum";
+import { NAV_LINK, UserRole } from "../../lib/enum";
 import AuthContext from "../../context/auth-context";
 import { useContext } from "react";
-
-const nav_links = [
-  { link: "", label: NAV_LINK.DASHBOARD, icon: IconDashboard },
-  { link: "", label: NAV_LINK.EVENT, icon: IconCalendarEvent },
-];
 
 type NavigationBarProps = {
   active: string;
   onClick: (nav: string) => void;
+};
+
+type NavLink = {
+  link: string;
+  label: NAV_LINK;
+  icon: React.ElementType<IconProps>; // Adjusted type for icon
 };
 
 const NavigationBar: React.FC<NavigationBarProps> = ({ onClick, active }) => {
@@ -25,7 +27,14 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ onClick, active }) => {
     throw new Error("AuthContext is not defined");
   }
 
-  const { logoutUser } = authContext;
+  const { logoutUser, user } = authContext;
+
+  const nav_links: NavLink[] = [
+    user?.role === UserRole.ADMIN
+      ? { link: "", label: NAV_LINK.DASHBOARD, icon: IconDashboard }
+      : null,
+    { link: "", label: NAV_LINK.EVENT, icon: IconCalendarEvent },
+  ].filter(Boolean) as NavLink[];
 
   const links = nav_links.map((item) => (
     <a
@@ -38,7 +47,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ onClick, active }) => {
         onClick(item.label);
       }}
     >
-      <item.icon className={classes.linkIcon} stroke={1.5} />
+      {item.icon && <item.icon className={classes.linkIcon} stroke={1.5} />}
       <span>{item.label}</span>
     </a>
   ));

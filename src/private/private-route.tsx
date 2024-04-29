@@ -5,28 +5,31 @@ import { UserRole } from "../lib/enum";
 
 type PrivateRouteProps = {
   children: React.ReactNode;
-  role: UserRole;
 };
 
-const PrivateRoute: React.FC<PrivateRouteProps> = ({ children, role }) => {
+const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
   const authContext = useContext(AuthContext);
 
   if (!authContext) {
     throw new Error("AuthContext is not defined");
   }
 
-  const { user } = authContext;
+  const { user, logoutUser } = authContext;
 
   if (!user) {
+    logoutUser();
     return <Navigate to={"/"} />;
   }
 
-  if (user.role !== role) {
-    return user.role === UserRole.ADMIN ? (
-      <Navigate to={"/admin-panel"} />
-    ) : (
-      <Navigate to={"/student"} />
-    );
+  const isStudentRoute = window.location.pathname.startsWith("/student");
+  const isAdminRoute = window.location.pathname.startsWith("/admin-panel");
+
+  if (
+    (isStudentRoute && user.role === UserRole.ADMIN) ||
+    (isAdminRoute && user.role === UserRole.STUDENT)
+  ) {
+    logoutUser();
+    return <Navigate to={"/"} />;
   }
 
   return <>{children}</>;

@@ -8,15 +8,26 @@ import {
   Title,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { color } from "../../lib/colors";
 import { IconPlus } from "@tabler/icons-react";
 import NewEventModalForm from "./components/new-event-modal-form";
 import EventTable from "./components/event-table";
 import useEventRequest from "./requests/request";
 import { EventType } from "../../lib/type";
+import AuthContext from "../../context/auth-context";
+import { UserRole } from "../../lib/enum";
+import { Navigate } from "react-router-dom";
 
 const Event: React.FC = () => {
+  const authContext = useContext(AuthContext);
+
+  if (!authContext) {
+    throw new Error("AuthContext is not defined");
+  }
+
+  const { user, logoutUser } = authContext;
+
   const [
     openedNewEventModal,
     { open: openNewEventModal, close: closeNewEventModal },
@@ -45,6 +56,11 @@ const Event: React.FC = () => {
     fetchEvents();
     closeNewEventModal();
   };
+
+  if (user?.role !== UserRole.ADMIN) {
+    logoutUser();
+    return <Navigate to={"/"} />;
+  }
 
   return (
     <div>

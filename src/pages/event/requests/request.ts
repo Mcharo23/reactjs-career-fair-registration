@@ -77,7 +77,26 @@ const useEventRequest = () => {
     }
   };
 
-  return { fetchAllEvents };
+  const attendEvent = async (eventId: number) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:8080/career-fair/events/attend/${eventId}`,
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+      return response.data.message;
+    } catch (error) {
+      console.error(`Failed to attend event with ID ${eventId}:`, error);
+      throw error;
+    }
+  };
+
+  return { fetchAllEvents, attendEvent };
 };
 
 export default useEventRequest;

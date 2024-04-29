@@ -5,7 +5,6 @@ import AdminPanel from "./pages/admin/admin-panel";
 import PrivateRoute from "./private/private-route";
 import { AuthProvider } from "./context/auth-context";
 import StudentPanel from "./pages/student/student-panel";
-import { UserRole } from "./lib/enum";
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -28,7 +27,7 @@ const App = () => {
           <Route
             path="/admin-panel"
             element={
-              <PrivateRoute role={UserRole.ADMIN}>
+              <PrivateRoute>
                 <AdminPanel />
               </PrivateRoute>
             }
@@ -36,7 +35,7 @@ const App = () => {
           <Route
             path="/student"
             element={
-              <PrivateRoute role={UserRole.STUDENT}>
+              <PrivateRoute>
                 <StudentPanel />
               </PrivateRoute>
             }
