@@ -100,7 +100,13 @@ const Authentication: React.FC = () => {
         </Flex>
 
         <form onSubmit={form.onSubmit(handleOnSubmit)}>
-          <Paper withBorder shadow="md" p={30} radius="md">
+          <Paper
+            withBorder
+            shadow="md"
+            p={30}
+            radius="md"
+            bg={`${color.white}`}
+          >
             <TextInput
               c={`${color.blue_500}`}
               type="email"

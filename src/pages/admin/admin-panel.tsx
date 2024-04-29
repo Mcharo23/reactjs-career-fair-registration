@@ -5,9 +5,7 @@ import HomeHeader from "../../global/components/header";
 import NavigationBar from "../../global/components/nav";
 import { NAV_LINK } from "../../lib/enum";
 import AdminDashboard from "./dashboard/admin-dashboard";
-import AdminMenu from "./admin-menu";
-import AdminStaff from "./staffs/admin-staff";
-import Customer from "./customers/customer";
+import Event from "../event/event";
 
 const AdminPanel: React.FC = () => {
   const [opened, { toggle }] = useDisclosure();
@@ -36,9 +34,7 @@ const AdminPanel: React.FC = () => {
       <AppShell.Main>
         <Stack w={"100%"}>
           {active === NAV_LINK.DASHBOARD && <AdminDashboard />}
-          {active === NAV_LINK.MENU && <AdminMenu />}
-          {active === NAV_LINK.STAFF && <AdminStaff />}
-          {active === NAV_LINK.CUSTOMER && <Customer />}
+          {active === NAV_LINK.EVENT && <Event />}
         </Stack>
       </AppShell.Main>
     </AppShell>

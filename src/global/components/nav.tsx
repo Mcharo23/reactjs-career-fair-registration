@@ -1,9 +1,7 @@
 import {
-  IconChefHat,
+  IconCalendarEvent,
   IconDashboard,
   IconLogout,
-  IconUserCircle,
-  IconUserHeart,
 } from "@tabler/icons-react";
 import classes from "../css/NavbarSimple.module.css";
 import { NAV_LINK } from "../../lib/enum";
@@ -12,9 +10,7 @@ import { useContext } from "react";
 
 const nav_links = [
   { link: "", label: NAV_LINK.DASHBOARD, icon: IconDashboard },
-  { link: "", label: NAV_LINK.STAFF, icon: IconUserCircle },
-  { link: "", label: NAV_LINK.CUSTOMER, icon: IconUserHeart },
-  { link: "", label: NAV_LINK.MENU, icon: IconChefHat },
+  { link: "", label: NAV_LINK.EVENT, icon: IconCalendarEvent },
 ];
 
 type NavigationBarProps = {

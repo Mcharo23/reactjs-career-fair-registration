@@ -49,8 +49,6 @@ export const AuthProvider: React.FC<AuthProviderProp> = ({ children }) => {
 
   // const API_URL = process.env.REACT_APP_API_URL;
 
-  // console.log(API_URL);
-
   const loginUnser = (values: {
     email: string;
     password: string;
@@ -79,11 +77,10 @@ export const AuthProvider: React.FC<AuthProviderProp> = ({ children }) => {
         return response.json();
       })
       .then((result) => {
-        console.log(result);
         // Handle successful
-        setAuthToken(result.jwt);
-        localStorage.setItem(TOKEN, JSON.stringify(result.jwt));
-        const decodedUser: userType = jwtDecode(result.jwt);
+        setAuthToken(result.token);
+        localStorage.setItem(TOKEN, JSON.stringify(result.token));
+        const decodedUser: userType = jwtDecode(result.token);
         setUser(decodedUser);
 
         if (decodedUser.role === UserRole.ADMIN) {
