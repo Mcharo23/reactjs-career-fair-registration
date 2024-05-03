@@ -12,7 +12,11 @@ const useCustomNavigation = () => {
   };
 
   const navigateToRegister = () => {
-    navigate("/register", { replace: true });
+    navigate("/register", { replace: false });
+  };
+
+  const navigateToAuth = () => {
+    navigate("/", { replace: true });
   };
 
   const logout = () => {
@@ -24,6 +28,7 @@ const useCustomNavigation = () => {
     logout,
     navigateStudentPanel,
     navigateToRegister,
+    navigateToAuth,
   };
 };
 

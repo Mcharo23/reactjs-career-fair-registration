@@ -6,15 +6,16 @@ import {
   TextInput,
   PasswordInput,
   Button,
-  Title,
   Flex,
-  Avatar,
+  Checkbox,
+  Anchor,
+  Text,
+  Stack,
 } from "@mantine/core";
 import { IconPasswordUser, IconUser } from "@tabler/icons-react";
-import { color } from "../../lib/colors";
 import AuthContext from "../../context/auth-context";
 import DotLoader from "../../global/components/dot-loader";
-import logo from "../../assets/knowledge.png";
+import useCustomNavigation from "../../global/function/navigation";
 
 const Authentication: React.FC = () => {
   const authContext = useContext(AuthContext);
@@ -25,7 +26,7 @@ const Authentication: React.FC = () => {
 
   const { loginUnser, loading, setLoading } = authContext;
 
-  // const { navigateToRegister } = useCustomNavigation();
+  const { navigateToRegister } = useCustomNavigation();
 
   //FORMS
   const form = useForm({
@@ -72,43 +73,12 @@ const Authentication: React.FC = () => {
   };
 
   return (
-    <Container
-      fluid
-      style={{
-        height: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      {loading && <DotLoader />}
-      <Flex direction={"column"} justify={"center"} align={"center"} gap={"md"}>
-        <Flex direction={"row"} align={"center"} justify={"center"} gap={"xs"}>
-          <Avatar src={`${logo}`} alt="icon" radius="xl" />
-          <Title
-            order={2}
-            c={`${color.blue_950}`}
-            style={{
-              whiteSpace: "pre-line",
-              textAlign: "center",
-              lineHeight: 1.2,
-            }}
-          >
-            CAREER FAIR
-          </Title>
-        </Flex>
-
+    <Container size={420} my={40}>
+      <Stack>
+        {loading && <DotLoader />}
         <form onSubmit={form.onSubmit(handleOnSubmit)}>
-          <Paper
-            withBorder
-            shadow="md"
-            p={30}
-            radius="md"
-            bg={`${color.white}`}
-          >
+          <Paper withBorder shadow="md" p={30} mt={30} radius="md">
             <TextInput
-              c={`${color.blue_500}`}
               type="email"
               label="Email"
               value={form.values.email}
@@ -122,7 +92,6 @@ const Authentication: React.FC = () => {
             />
 
             <PasswordInput
-              c={`${color.blue_500}`}
               label="Password"
               placeholder="Your password"
               value={form.values.password}
@@ -134,12 +103,39 @@ const Authentication: React.FC = () => {
               mt="md"
             />
 
-            <Button type="submit" fullWidth mt="xl" variant="filled">
+            <Flex
+              align={"center"}
+              justify={"space-between"}
+              direction={"row"}
+              mt={"md"}
+            >
+              <Checkbox label="Remember me" />
+
+              <Anchor component="button" size="sm">
+                Forgot password?
+              </Anchor>
+            </Flex>
+
+            <Button type="submit" fullWidth mt="xl">
               Sign in
             </Button>
+
+            <Text ta={"center"} mt="md">
+              Don&apos;t have an account?{" "}
+              <Anchor<"a">
+                href="#"
+                fw={700}
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigateToRegister();
+                }}
+              >
+                Register
+              </Anchor>
+            </Text>
           </Paper>
         </form>
-      </Flex>
+      </Stack>
     </Container>
   );
 };

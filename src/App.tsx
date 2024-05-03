@@ -5,6 +5,7 @@ import AdminPanel from "./pages/admin/admin-panel";
 import PrivateRoute from "./private/private-route";
 import { AuthProvider } from "./context/auth-context";
 import StudentPanel from "./pages/student/student-panel";
+import Registration from "./pages/registration/register";
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -23,6 +24,7 @@ const App = () => {
       <AuthProvider>
         <Routes>
           <Route path="/" element={<Authentication />} />
+          <Route path="/register" element={<Registration />} />
 
           <Route
             path="/admin-panel"
