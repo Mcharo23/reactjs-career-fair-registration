@@ -161,6 +161,7 @@ const EventsTable: React.FC<EventTableProps> = ({ eventData, onClick }) => {
       <Table.Td>{row.eventDate}</Table.Td>
       <Table.Td>{row.eventTime}</Table.Td>
       <Table.Td>{row.location}</Table.Td>
+      <Table.Td c={`${color.green}`}>{String(row.capacity)}</Table.Td>
       <Table.Td c={`${color.green}`}>{String(row.numAttendees)}</Table.Td>
       <Table.Td>
         <Group>
@@ -273,11 +274,18 @@ const EventsTable: React.FC<EventTableProps> = ({ eventData, onClick }) => {
                   Location
                 </Th>
                 <Th
+                  sorted={sortBy === "capacity"}
+                  reversed={reverseSortDirection}
+                  onSort={() => setSorting("capacity")}
+                >
+                  Capacuty
+                </Th>
+                <Th
                   sorted={sortBy === "numAttendees"}
                   reversed={reverseSortDirection}
                   onSort={() => setSorting("numAttendees")}
                 >
-                  Attendence
+                  Attendees
                 </Th>
                 <Th sorted={false} reversed={false} onSort={() => {}}>
                   Actions

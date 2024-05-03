@@ -95,7 +95,7 @@ const Event: React.FC = () => {
             c={`${color.blue_950}`}
             onClick={openNewEventModal}
           >
-            New Staff
+            New Event
           </Button>
         </Flex>
 
